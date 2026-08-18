@@ -1,0 +1,11 @@
+# 构建产物
+/dist/
+*.zip
+
+# 模块运行期生成
+.power_torch.pid
+torch.log
+
+# Python
+__pycache__/
+*.pyc
