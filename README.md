@@ -23,7 +23,7 @@
 
 ## 安装
 
-1. 下载 [Releases](../../releases) 中的 zip 包
+1. 下载 [Releases](releases) 中的 zip 包
 2. 在 KernelSU / Magisk 管理器中「从本地安装」该 zip
 3. 重启手机
 
