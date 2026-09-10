@@ -14,7 +14,7 @@
 | 已上线版本 | `v2.0`（versionCode 22），release tag `22-v2.0` |
 
 - 源码仓库（本仓库，`Sev73n/OnePlus13_doubletap_flash`）与官方仓库相互独立：日常开发只在本仓库进行，官方仓库仅用于商店展示与分发，两仓库通过 `module.json` 的 `sourceUrl` 字段关联，源码仓库不转移。
-- 商店收录由官方机器人完成：官方仓库出现**新建的 Release**（或 push）后，机器人约 30 秒内自动触发 [modules 构建](https://github.com/KernelSU-Modules-Repo/modules/actions/workflows/build.yml)，几分钟内商店生效。
+- 商店收录由官方机器人完成：官方仓库**新建 Release** 后，`KernelSU-Bot` 约 30 秒内自动触发该模块的增量构建（[modules 仓库 workflow_dispatch](https://github.com/KernelSU-Modules-Repo/modules/actions/workflows/build.yml)），几分钟内商店生效。
 
 ## 一、更新流程（每次发版照此执行）
 
@@ -61,7 +61,9 @@ gh release create 23-v2.1 "dist/coloros_double_power_torch_v2.1.zip" \
 
 ### 3. 同步 README / module.json（内容有改动时才需要）
 
-官方仓库的 `README.md`（商店详情页展示）和 `module.json`（summary 等元信息）改动后，机器人同样会自动触发商店重建。同步方法（先取当前文件 sha 再 PUT）：
+官方仓库的 `README.md`（商店详情页展示）和 `module.json`（summary 等元信息）改动后，需要同步到官方仓库。注意：**实测单纯 push 文件不会触发增量重建**（增量构建由 KernelSU-Bot 在新建 Release 时调度），改动会在每日定时全量构建（`cron: 0 0 * * *`，即北京时间约 08:00）时生效；想让改动立即上线，就随下一次发版的新 Release 一起带出（新建 Release 会重新抓取该模块的 README / module.json）。
+
+同步命令（先取当前文件 sha 再 PUT）：
 
 ```bash
 # README 同步示例
