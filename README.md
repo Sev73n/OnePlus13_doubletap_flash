@@ -23,7 +23,7 @@
 
 ## 安装
 
-1. 下载 [Releases](releases) 中的 zip 包
+1. 下载 [Releases](https://github.com/KernelSU-Modules-Repo/coloros_double_power_torch/releases) 中的 zip 包
 2. 在 KernelSU / Magisk 管理器中「从本地安装」该 zip
 3. 重启手机
 
@@ -56,4 +56,4 @@ python build_zip.py
 
 ## 协议
 
-[MIT License](LICENSE)
+[MIT License](https://github.com/Sev73n/OnePlus13_doubletap_flash/blob/main/LICENSE)
