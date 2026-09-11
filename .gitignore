@@ -9,3 +9,6 @@ torch.log
 # Python
 __pycache__/
 *.pyc
+
+# 工具运行状态（安全扫描等）
+.mimosa/

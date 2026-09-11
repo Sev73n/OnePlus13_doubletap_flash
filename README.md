@@ -6,14 +6,22 @@
 
 - 锁屏状态下双击电源键，切换手电筒开/关
 - 默认使用最大亮度
-- 仅锁屏时生效，解锁后电源键行为完全交给系统，不与相机/闪光灯冲突
+- **通知栏手电筒开关状态自动同步**（走系统相机框架，不与相机 HAL 冲突）
+- 仅锁屏时生效，解锁后电源键行为完全交给系统
 - 监听进程自愈 + 崩溃自动重启
 
 ## 原理
 
-模块通过 `getevent` 监听电源键的按下事件，检测两次按下间隔是否小于设定值判定为双击；在锁屏状态下，向手电筒的 sysfs 节点写入亮度实现开关。
+模块通过 `getevent` 监听电源键的按下事件，检测两次按下间隔是否小于设定值判定为双击；在锁屏状态下，通过 SystemUI 广播走系统相机框架控制手电筒：
 
-实测一加13 (PJZ110) 的手电筒节点为：
+```
+开灯: am broadcast -a com.android.systemui.ACTION_SWITCH_FLASHLIGHT --ez intent_extra_flashlight false
+关灯: am broadcast -a com.android.systemui.ACTION_SWITCH_FLASHLIGHT --ez intent_extra_flashlight true
+```
+
+该广播由 `com.oplus.systemui.notification.flashlight.FlashlightNotification` 接收，最终调用 `FlashlightController.setFlashlightFromUser()`，因此**通知栏图标会自动同步**，也不会与相机使用闪光灯时互抢状态。
+
+若广播不可用（SystemUI 未就绪），自动回退为直接写 sysfs 节点。实测一加13 (PJZ110) 的手电筒节点为：
 
 | 节点 | 作用 |
 | --- | --- |
@@ -34,7 +42,7 @@
 | 配置 | 默认 | 说明 |
 | --- | --- | --- |
 | `DOUBLE_CLICK_DELAY` | 350 | 双击间隔（毫秒），两次按下小于此值判定为双击 |
-| `TORCH_BRIGHTNESS` | 0 | 手电筒亮度（1~500）；0 表示最大亮度 |
+| `TORCH_BRIGHTNESS` | 500 | 开灯后亮度（1~500）；0 表示不覆盖，沿用系统记忆档位 |
 | `COOLDOWN_TIME` | 500 | 触发后冷却（毫秒） |
 | `LOCK_ONLY` | 1 | 1=仅锁屏生效；0=任何状态生效 |
 | `LOG_FILE` | `$MODDIR/torch.log` | 运行日志路径，留空关闭日志 |
@@ -56,4 +64,4 @@ python build_zip.py
 
 ## 协议
 
-[MIT License](https://github.com/Sev73n/OnePlus13_doubletap_flash/blob/main/LICENSE)
+[MIT License](https://github.com/Sev73n/OnePlus13_doubletap_flash/blob/master/LICENSE)

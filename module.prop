@@ -1,6 +1,6 @@
 id=coloros_double_power_torch
 name=一加13双击电源打开手电筒
-version=v2.0
-versionCode=22
+version=v2.1
+versionCode=23
 author=73
 description=一加13双击电源键开关手电筒（仅锁屏生效，KernelSU/Magisk）
