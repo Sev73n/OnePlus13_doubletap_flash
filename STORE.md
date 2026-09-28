@@ -11,7 +11,7 @@
 | 商店数据 JSON | https://modules.kernelsu.org/module/coloros_double_power_torch.json |
 | 官方仓库 | https://github.com/KernelSU-Modules-Repo/coloros_double_power_torch（默认分支 `main`，本账号持有 admin 权限） |
 | 官方仓库内容 | `module.json`、`README.md` |
-| 已上线版本 | `v2.2`（versionCode 24），release tag `24-v2.2` |
+| 已上线版本 | 商店页面仍为 `v2.1`。源码 `v2.2`（versionCode 24，tag `v2.2`）已发布到本仓库 Release。2026-09-28 尝试向官方仓库发 `24-v2.2` 时，`KernelSU-Modules-Repo/coloros_double_power_torch` 的仓库页面和 API 均为 404，商店 Release 未创建。 |
 
 - 源码仓库（本仓库，`Sev73n/OnePlus13_doubletap_flash`）与官方仓库相互独立：日常开发只在本仓库进行，官方仓库仅用于商店展示与分发，两仓库通过 `module.json` 的 `sourceUrl` 字段关联，源码仓库不转移。
 - 商店收录由官方机器人完成：官方仓库**新建 Release** 后，`KernelSU-Bot` 约 30 秒内自动触发该模块的增量构建（[modules 仓库 workflow_dispatch](https://github.com/KernelSU-Modules-Repo/modules/actions/workflows/build.yml)），几分钟内商店生效。
